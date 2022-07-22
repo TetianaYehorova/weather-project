@@ -1,0 +1,63 @@
+body {
+  font-family: "Times New Roman", Times, serif;
+  background-image: url(sunny.jpg);
+}
+form {
+  margin: 15px auto 30px auto;
+}
+h1 {
+  color: blue;
+}
+a {
+  font-size: 20px;
+}
+ul {
+  list-style: none;
+  padding: 10px;
+  border: cadetblue solid 1px;
+  border-radius: 4px;
+  background: rgba(95, 158, 160, 0.075);
+  margin: 15px 10px 0 0;
+}
+h3 {
+  color: blue;
+}
+
+.weather {
+  margin-top: 20px;
+  opacity: 95%;
+}
+.main-today {
+  text-align: center;
+  position: relative;
+  left: -20px;
+}
+.date-time {
+  font-size: 15px;
+}
+.icon-sun {
+  color: yellow;
+  font-size: 50px;
+}
+#description {
+  color: blueviolet;
+  font-style: italic;
+  text-shadow: 1px 1px 2px pink;
+}
+.everyday {
+  text-align: center;
+  padding: 0;
+  margin-top: 30px;
+}
+.icon-sun-cloud {
+  color: blueviolet;
+  font-size: 30px;
+}
+p {
+  display: block;
+  margin: 0 auto;
+  width: 70px;
+  border: cadetblue solid 1px;
+  border-radius: 4px;
+  background: rgba(95, 158, 160, 0.075);
+}
