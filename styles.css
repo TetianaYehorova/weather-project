@@ -17,20 +17,22 @@ ul {
   border: cadetblue solid 1px;
   border-radius: 4px;
   background: rgba(95, 158, 160, 0.075);
-  margin: 15px 10px 0 0;
+  margin-right: 10px;
 }
 h3 {
   color: blue;
-}
-
-.weather {
-  margin-top: 20px;
-  opacity: 95%;
 }
 .main-today {
   text-align: center;
   position: relative;
   left: -20px;
+  margin-bottom: 15px;
+}
+.frame {
+  padding-top: 25px;
+}
+.city {
+  margin-bottom: 10px;
 }
 .date-time {
   font-size: 15px;

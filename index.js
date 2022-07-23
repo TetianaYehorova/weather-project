@@ -36,7 +36,7 @@ let heading = document.getElementById("my-city");
 function showTemp(response) {
   heading.innerHTML = `${response.data.name}`;
   let newCityTemp = document.querySelector("#temp");
-  newCityTemp.innerHTML = `${Math.round(response.data.main.temp)}°`;
+  newCityTemp.innerHTML = `${Math.round(response.data.main.temp)}°C`;
   let realFeel = document.querySelector("#real-feel");
   realFeel.innerHTML = `${Math.round(response.data.main.feels_like)}°`;
   let wind = document.querySelector("#wind");
@@ -46,18 +46,16 @@ function showTemp(response) {
   let description = document.querySelector("#description");
   description.innerHTML = response.data.weather[0].main;
 }
+
+function search(city) {
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric`;
+  axios.get(`${apiUrl}&appid=${apiKey}`).then(showTemp);
+}
+
 function changeCity(event) {
   event.preventDefault();
-  let newCity = document.querySelector("#enter-city");
-  if (newCity.value) {
-    heading.innerHTML = `${newCity.value}`;
-  } else {
-    heading.innerHTML = null;
-    alert("Please enter a city");
-  }
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${newCity.value}&units=metric`;
-
-  axios.get(`${apiUrl}&appid=${apiKey}`).then(showTemp);
+  let city = document.querySelector("#enter-city").value;
+  search(city);
 }
 
 let enterCity = document.querySelector("#enter-cities");
@@ -78,11 +76,4 @@ function getCurrentPosition() {
 let enterLocation = document.querySelector("#enter-location");
 enterLocation.addEventListener("click", getCurrentPosition);
 
-function makeF(event) {
-  event.preventDefault();
-  let tempFar = document.getElementById("temp");
-  tempFar.innerHTML = "+86°";
-}
-
-let followLink = document.querySelector("#unit-f");
-followLink.addEventListener("click", makeF);
+search("Kyiv");
