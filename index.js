@@ -66,6 +66,13 @@ function displayFarenheitTemp(event) {
   newCityTemp.innerHTML = `${Math.round(farenheitTemp)}°`;
 }
 
+function displayCelsiusTemp(event) {
+  event.preventDefault();
+
+  let newCityTemp = document.querySelector("#temp");
+  newCityTemp.innerHTML = `${Math.round(celsiusTemp)}°`;
+}
+
 function search(city) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric`;
   axios.get(`${apiUrl}&appid=${apiKey}`).then(showTemp);
@@ -88,6 +95,9 @@ function getCurrentPosition() {
 
 let farenheitUnit = document.querySelector("#farenheit");
 farenheitUnit.addEventListener("click", displayFarenheitTemp);
+
+let celsiusUnit = document.querySelector("#celsius");
+celsiusUnit.addEventListener("click", displayCelsiusTemp);
 
 let enterCity = document.querySelector("#enter-cities");
 enterCity.addEventListener("click", changeCity);
