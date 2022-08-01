@@ -33,6 +33,11 @@ h3 {
   font-size: 17px;
   top: -17px;
 }
+.main-today .active {
+  color: black;
+  cursor: default;
+  text-decoration: none;
+}
 .frame {
   padding-top: 25px;
 }

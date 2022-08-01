@@ -61,15 +61,18 @@ function showTemp(response) {
 
 function displayFarenheitTemp(event) {
   event.preventDefault();
-  let farenheitTemp = celsiusTemp * 1.8 + 32;
   let newCityTemp = document.querySelector("#temp");
+  celsiusUnit.classList.remove("active");
+  farenheitUnit.classList.add("active");
+  let farenheitTemp = celsiusTemp * 1.8 + 32;
   newCityTemp.innerHTML = `${Math.round(farenheitTemp)}°`;
 }
 
 function displayCelsiusTemp(event) {
   event.preventDefault();
-
   let newCityTemp = document.querySelector("#temp");
+  celsiusUnit.classList.add("active");
+  farenheitUnit.classList.remove("active");
   newCityTemp.innerHTML = `${Math.round(celsiusTemp)}°`;
 }
 
