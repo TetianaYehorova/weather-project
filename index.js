@@ -45,6 +45,15 @@ function showTemp(response) {
   humidity.innerHTML = `${response.data.main.humidity}%`;
   let description = document.querySelector("#description");
   description.innerHTML = response.data.weather[0].main;
+  let icon = document.querySelector("#icon");
+  icon.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  icon.setAttribute(
+    "alt",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].description}@2x.png`
+  );
 }
 
 function search(city) {
