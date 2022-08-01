@@ -25,6 +25,14 @@ h3 {
   left: -20px;
   margin-bottom: 15px;
 }
+.main-temp {
+  font-size: 40px;
+}
+.units {
+  position: relative;
+  font-size: 17px;
+  top: -17px;
+}
 .frame {
   padding-top: 25px;
 }

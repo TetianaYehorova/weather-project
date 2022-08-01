@@ -33,10 +33,13 @@ currentDate.innerHTML = `${day} ${date} ${month}, ${hours}:${minutes}`;
 
 let apiKey = "840732df46586671238d6bee78ac6a4c";
 let heading = document.getElementById("my-city");
+let celsiusTemp = null;
+
 function showTemp(response) {
   heading.innerHTML = `${response.data.name}`;
   let newCityTemp = document.querySelector("#temp");
-  newCityTemp.innerHTML = `${Math.round(response.data.main.temp)}°C`;
+  celsiusTemp = response.data.main.temp;
+  newCityTemp.innerHTML = `${Math.round(celsiusTemp)}°`;
   let realFeel = document.querySelector("#real-feel");
   realFeel.innerHTML = `${Math.round(response.data.main.feels_like)}°`;
   let wind = document.querySelector("#wind");
@@ -56,6 +59,13 @@ function showTemp(response) {
   );
 }
 
+function displayFarenheitTemp(event) {
+  event.preventDefault();
+  let farenheitTemp = celsiusTemp * 1.8 + 32;
+  let newCityTemp = document.querySelector("#temp");
+  newCityTemp.innerHTML = `${Math.round(farenheitTemp)}°`;
+}
+
 function search(city) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric`;
   axios.get(`${apiUrl}&appid=${apiKey}`).then(showTemp);
@@ -67,12 +77,6 @@ function changeCity(event) {
   search(city);
 }
 
-let enterCity = document.querySelector("#enter-cities");
-enterCity.addEventListener("click", changeCity);
-
-let enterCityMain = document.querySelector("#enter-city-main");
-enterCityMain.addEventListener("submit", changeCity);
-
 function showPosition(position) {
   let apiUrlNew = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=metric`;
   axios.get(`${apiUrlNew}&appid=${apiKey}`).then(showTemp);
@@ -81,6 +85,15 @@ function showPosition(position) {
 function getCurrentPosition() {
   navigator.geolocation.getCurrentPosition(showPosition);
 }
+
+let farenheitUnit = document.querySelector("#farenheit");
+farenheitUnit.addEventListener("click", displayFarenheitTemp);
+
+let enterCity = document.querySelector("#enter-cities");
+enterCity.addEventListener("click", changeCity);
+
+let enterCityMain = document.querySelector("#enter-city-main");
+enterCityMain.addEventListener("submit", changeCity);
 
 let enterLocation = document.querySelector("#enter-location");
 enterLocation.addEventListener("click", getCurrentPosition);
