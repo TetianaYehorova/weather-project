@@ -31,6 +31,34 @@ if (minutes < 10) {
 let currentDate = document.querySelector("#current-date");
 currentDate.innerHTML = `${day} ${date} ${month}, ${hours}:${minutes}`;
 
+function showForecast() {
+  let forecastData = document.querySelector("#forecast");
+
+  let forecastHTML = `<div class="row">`;
+
+  let days = ["Mon", "Tue", "Wed", "Thu", "Fri"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `<div class="col everyday">
+              <h3>
+                ${day}
+                <br />
+                <small>20</small>
+                <br />
+                <i class="fa-solid fa-cloud-sun icon-sun-cloud"></i>
+              </h3>
+              <strong>28°</strong>
+              <br />
+              19°
+              <p>↘2-4 m/s</p>
+            </div>`;
+  });
+  forecastHTML = forecastHTML + `</div>`;
+
+  forecastData.innerHTML = forecastHTML;
+}
+
 let apiKey = "840732df46586671238d6bee78ac6a4c";
 let heading = document.getElementById("my-city");
 let celsiusTemp = null;
@@ -112,3 +140,5 @@ let enterLocation = document.querySelector("#enter-location");
 enterLocation.addEventListener("click", getCurrentPosition);
 
 search("Kyiv");
+
+showForecast();
