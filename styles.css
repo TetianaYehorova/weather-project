@@ -5,9 +5,6 @@ body {
 form {
   margin: 15px auto 30px auto;
 }
-h1 {
-  color: blue;
-}
 ul {
   list-style: none;
   padding: 10px;
@@ -17,7 +14,10 @@ ul {
   margin-right: 10px;
 }
 h3 {
-  color: blue;
+  color: rgba(69, 69, 168, 0.799);
+}
+#card {
+  margin-top: 40px;
 }
 .main-today {
   text-align: center;
@@ -43,12 +43,13 @@ h3 {
 }
 .city {
   margin-bottom: 10px;
+  color: blue;
 }
 .date-time {
   font-size: 15px;
+  color: blue;
 }
 .icon-sun {
-  color: yellow;
   font-size: 50px;
 }
 #description {
@@ -61,11 +62,13 @@ h3 {
   padding: 0;
   margin-top: 30px;
 }
-.icon-sun-cloud {
-  color: blueviolet;
-  font-size: 30px;
+.forecast-day {
+  color: blue;
+  font-size: 22px;
 }
+
 p {
+  font-size: 14px;
   display: block;
   margin: 0 auto;
   width: 70px;

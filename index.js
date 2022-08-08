@@ -1,6 +1,6 @@
 let now = new Date();
 let date = now.getDate();
-let days = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 let day = days[now.getDay()];
 let monthes = [
   "January",
@@ -33,36 +33,51 @@ currentDate.innerHTML = `${day} ${date} ${month}, ${hours}:${minutes}`;
 
 let apiKey = "840732df46586671238d6bee78ac6a4c";
 let heading = document.getElementById("my-city");
-let celsiusTemp = null;
 
 function getForecast(coordinates) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
-  console.log(apiUrl);
+
   axios.get(apiUrl).then(showForecast);
+}
+
+function formateDate(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
+
+function formateDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDate();
+  return day;
 }
 
 function showForecast(response) {
   let forecastData = document.querySelector("#forecast");
-  console.log(response.data.daily);
+  let forecast = response.data.daily;
   let forecastHTML = `<div class="row">`;
-
-  let days = ["Mon", "Tue", "Wed", "Thu", "Fri"];
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `<div class="col everyday">
+  console.log(response.data.daily);
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 5) {
+      forecastHTML =
+        forecastHTML +
+        `<div class="col everyday">
               <h3>
-                ${day}
+               <div class="forecast-day">${formateDate(forecastDay.dt)}
                 <br />
-                <small>20</small>
-                <br />
-                <i class="fa-solid fa-cloud-sun icon-sun-cloud"></i>
+                <small>${formateDay(forecastDay.dt)}</small>
+                <br /> </div>
+                <img src="http://openweathermap.org/img/wn/${
+                  forecastDay.weather[0].icon
+                }@2x.png" alt="" width="70"></img>
               </h3>
-              <strong>28°</strong>
+              <strong>${Math.round(forecastDay.temp.max)}°</strong>
               <br />
-              19°
-              <p>↘2-4 m/s</p>
+              ${Math.round(forecastDay.temp.min)}°
+              <p>${Math.round(forecastDay.wind_speed)} m/s</p>
             </div>`;
+    }
   });
   forecastHTML = forecastHTML + `</div>`;
 
@@ -72,8 +87,7 @@ function showForecast(response) {
 function showTemp(response) {
   heading.innerHTML = `${response.data.name}`;
   let newCityTemp = document.querySelector("#temp");
-  celsiusTemp = response.data.main.temp;
-  newCityTemp.innerHTML = `${Math.round(celsiusTemp)}°`;
+  newCityTemp.innerHTML = `${Math.round(response.data.main.temp)}°`;
   let realFeel = document.querySelector("#real-feel");
   realFeel.innerHTML = `${Math.round(response.data.main.feels_like)}°`;
   let wind = document.querySelector("#wind");
@@ -95,23 +109,6 @@ function showTemp(response) {
   getForecast(response.data.coord);
 }
 
-function displayFarenheitTemp(event) {
-  event.preventDefault();
-  let newCityTemp = document.querySelector("#temp");
-  celsiusUnit.classList.remove("active");
-  farenheitUnit.classList.add("active");
-  let farenheitTemp = celsiusTemp * 1.8 + 32;
-  newCityTemp.innerHTML = `${Math.round(farenheitTemp)}°`;
-}
-
-function displayCelsiusTemp(event) {
-  event.preventDefault();
-  let newCityTemp = document.querySelector("#temp");
-  celsiusUnit.classList.add("active");
-  farenheitUnit.classList.remove("active");
-  newCityTemp.innerHTML = `${Math.round(celsiusTemp)}°`;
-}
-
 function search(city) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric`;
   axios.get(`${apiUrl}&appid=${apiKey}`).then(showTemp);
@@ -131,12 +128,6 @@ function showPosition(position) {
 function getCurrentPosition() {
   navigator.geolocation.getCurrentPosition(showPosition);
 }
-
-let farenheitUnit = document.querySelector("#farenheit");
-farenheitUnit.addEventListener("click", displayFarenheitTemp);
-
-let celsiusUnit = document.querySelector("#celsius");
-celsiusUnit.addEventListener("click", displayCelsiusTemp);
 
 let enterCity = document.querySelector("#enter-cities");
 enterCity.addEventListener("click", changeCity);
